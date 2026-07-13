@@ -23,7 +23,8 @@ function render(){
   const text=input.value.trim();
   charCount.textContent=`${input.value.length} / 500`;
   if(!text){suggestions.innerHTML='<div class="empty-state"><span>✦</span><p>输入消息后，选择你想要的表达方式</p></div>';alertBox.classList.add('hidden');return}
-  suggestions.innerHTML=samples[mode].map((s,i)=>`<div class="suggestion" data-value="${s}"><small>${i===0?'推荐表达':i===1?'更自然':'备选表达'}</small><strong>${s}</strong></div>`).join('');
+  const reasons = mode==='next'?['承接对话上下文','语气自然不生硬','适合直接发送']:mode==='polish'?['表达更正式','保留原始意图','适合工作沟通']:mode==='shorten'?['压缩关键信息','减少阅读负担','适合聊天场景']:['修正同音错字','结合上下文还原语义','建议发送前确认'];
+  suggestions.innerHTML=`<div class="result-meta"><span>为你生成 3 条建议</span><span>刚刚</span></div>`+samples[mode].map((s,i)=>`<div class="suggestion" data-value="${s}"><div><small>${i===0?'推荐表达':i===1?'更自然':'备选表达'} · ${reasons[i]}</small><strong>${s}</strong></div><button class="use-btn">使用</button></div>`).join('');
   const hasSensitive=/1[3-9]\d{9}|\d{17}[\dXx]|(北京|上海|广州|深圳).{0,12}(路|区|号)/.test(text);
   alertBox.classList.toggle('hidden',!hasSensitive);
 }
@@ -31,7 +32,7 @@ document.querySelectorAll('.mode').forEach(btn=>btn.addEventListener('click',()=
 document.querySelector('#generateBtn').addEventListener('click',render);
 input.addEventListener('input',()=>{charCount.textContent=`${input.value.length} / 500`;});
 document.querySelector('#clearBtn').addEventListener('click',()=>{input.value='';render()});
-suggestions.addEventListener('click',e=>{const card=e.target.closest('.suggestion');if(card){input.value=card.dataset.value;localStorage.setItem('preferredStyle',mode==='polish'?'礼貌正式':mode==='shorten'?'简洁直接':'自然清晰');prefTag.textContent=localStorage.getItem('preferredStyle');render()}});
+suggestions.addEventListener('click',e=>{const card=e.target.closest('.suggestion');if(card){input.value=card.dataset.value;localStorage.setItem('preferredStyle',mode==='polish'?'礼貌正式':mode==='shorten'?'简洁直接':'自然清晰');prefTag.textContent=localStorage.getItem('preferredStyle');if(e.target.classList.contains('use-btn')){e.target.textContent='已回填';setTimeout(render,500)}else{render()}}});
 document.querySelector('#maskBtn').addEventListener('click',()=>{input.value=input.value.replace(/1[3-9]\d{9}/g,'138****8000').replace(/\d{17}[\dXx]/g,'******************');render()});
 prefTag.textContent=localStorage.getItem('preferredStyle')||prefTag.textContent;
 document.querySelector('#voiceBtn').addEventListener('click',()=>{
