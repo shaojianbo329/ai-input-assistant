@@ -3,6 +3,10 @@ const suggestions = document.querySelector('#suggestions');
 const alertBox = document.querySelector('#privacyAlert');
 const charCount = document.querySelector('#charCount');
 const prefTag = document.querySelector('#prefTag');
+const analysisBar = document.querySelector('#analysisBar');
+const intentLabel = document.querySelector('#intentLabel');
+const styleLabel = document.querySelector('#styleLabel');
+const riskLabel = document.querySelector('#riskLabel');
 let mode = 'next';
 let recognition;
 
@@ -22,11 +26,16 @@ const demoTexts = {
 function render(){
   const text=input.value.trim();
   charCount.textContent=`${input.value.length} / 500`;
-  if(!text){suggestions.innerHTML='<div class="empty-state"><span>✦</span><p>输入消息后，选择你想要的表达方式</p></div>';alertBox.classList.add('hidden');return}
+  if(!text){suggestions.innerHTML='<div class="empty-state"><span>✦</span><p>输入消息后，选择你想要的表达方式</p></div>';alertBox.classList.add('hidden');analysisBar.classList.add('hidden');return}
   const reasons = mode==='next'?['承接对话上下文','语气自然不生硬','适合直接发送']:mode==='polish'?['表达更正式','保留原始意图','适合工作沟通']:mode==='shorten'?['压缩关键信息','减少阅读负担','适合聊天场景']:['修正同音错字','结合上下文还原语义','建议发送前确认'];
   suggestions.innerHTML=`<div class="result-meta"><span>为你生成 3 条建议</span><span>刚刚</span></div>`+samples[mode].map((s,i)=>`<div class="suggestion" data-value="${s}"><div><small>${i===0?'推荐表达':i===1?'更自然':'备选表达'} · ${reasons[i]}</small><strong>${s}</strong></div><button class="use-btn">使用</button></div>`).join('');
   const hasSensitive=/1[3-9]\d{9}|\d{17}[\dXx]|(北京|上海|广州|深圳).{0,12}(路|区|号)/.test(text);
   alertBox.classList.toggle('hidden',!hasSensitive);
+  analysisBar.classList.remove('hidden');
+  intentLabel.textContent=mode==='next'?'回复进度确认':mode==='polish'?'工作沟通润色':mode==='shorten'?'长文本压缩': '语音语义纠错';
+  styleLabel.textContent=localStorage.getItem('preferredStyle')||'简洁直接';
+  riskLabel.textContent=hasSensitive?'发现隐私风险':'未发现风险';
+  riskLabel.style.color=hasSensitive?'#d28b2f':'#45a26c';
 }
 document.querySelectorAll('.mode').forEach(btn=>btn.addEventListener('click',()=>{document.querySelector('.mode.active').classList.remove('active');btn.classList.add('active');mode=btn.dataset.mode;render()}));
 document.querySelector('#generateBtn').addEventListener('click',render);
