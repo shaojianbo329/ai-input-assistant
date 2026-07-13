@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>句伴 · AI 智能输入助手</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <div>
+          <span class="eyebrow">AI INPUT ASSISTANT · MVP</span>
+          <h1>让每一句话，都更像你。</h1>
+          <p>句伴在发送前帮你补全、润色、纠错，并保护敏感信息。</p>
+        </div>
+        <div class="privacy-pill">● 本地演示模式</div>
+      </section>
+
+      <section class="workspace">
+        <div class="panel composer-panel">
+          <div class="panel-heading"><span>消息编辑器</span><span id="charCount">0 / 500</span></div>
+          <div class="context-box"><span class="label">最近对话</span><p>对方：这个方案周五之前能给我初稿吗？</p><p>我：可以，我先梳理一下需求……</p></div>
+          <textarea id="inputText" maxlength="500" placeholder="输入你想说的话，例如：这个我再看看吧，晚点给你"></textarea>
+          <div class="toolbar"><span>⌕ 智能输入已开启</span><div><button id="voiceBtn" class="tool-btn">◉ 语音转写</button><button id="clearBtn" class="text-btn">清空</button></div></div>
+          <button id="generateBtn" class="primary-btn">生成发送建议 <span>↗</span></button>
+        </div>
+
+        <div class="panel result-panel">
+          <div class="panel-heading"><span>AI 建议</span><span class="status-dot">实时</span></div>
+          <div class="mode-row">
+            <button class="mode active" data-mode="next">接着说</button>
+            <button class="mode" data-mode="polish">改语气</button>
+            <button class="mode" data-mode="shorten">变简洁</button>
+            <button class="mode" data-mode="correct">纠错</button>
+          </div>
+          <div class="preference-row"><span>✦ 已学习你的表达偏好</span><span id="prefTag" class="preference-tag">简洁 · 少表情 · 直接</span></div>
+          <div id="suggestions" class="suggestions"><div class="empty-state"><span>✦</span><p>输入消息后，选择你想要的表达方式</p></div></div>
+          <div id="privacyAlert" class="privacy-alert hidden"><strong>发送前提醒</strong><p>检测到可能的隐私信息：手机号、身份证号或地址。请确认是否需要发送。</p><button id="maskBtn">一键脱敏</button></div>
+        </div>
+      </section>
+
+      <section class="demo-strip">
+        <div><span class="eyebrow">QUICK DEMO</span><h2>不只是“写得更好”，而是更快完成一次沟通</h2></div>
+        <div class="quick-actions"><button data-demo="long">试试长文本压缩</button><button data-demo="voice">试试语音纠错</button><button data-demo="privacy">试试隐私提醒</button></div>
+      </section>
+
+      <section class="insight-grid">
+        <div class="mini-card"><span class="mini-icon purple">✦</span><div><strong>懂你的表达</strong><p>根据历史偏好推荐“简洁、直接”的语气</p></div></div>
+        <div class="mini-card"><span class="mini-icon green">✓</span><div><strong>敏感信息守护</strong><p>发送前识别并提醒手机号、地址等内容</p></div></div>
+        <div class="mini-card"><span class="mini-icon orange">↯</span><div><strong>语音也能懂</strong><p>纠正同音错字，还原你真正想表达的意思</p></div></div>
+      </section>
+      <footer>句伴 · AI 智能输入助手 <span>产品设计作品集项目 / 2026</span></footer>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
