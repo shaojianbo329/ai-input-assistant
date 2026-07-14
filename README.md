@@ -2,6 +2,14 @@
 
 一个面向聊天场景的 AI 输入助手 MVP，目标是让用户在发送前更快、更准确、更安全地表达自己。项目包含可交互前端原型与完整产品方案，适合用于产品/AI 产品实习作品集展示。
 
+> 在线 Demo：[shaojianbo329.github.io/ai-input-assistant](https://shaojianbo329.github.io/ai-input-assistant/)
+
+![句伴产品原型](assets/demo-preview.png)
+
+## 一句话介绍
+
+句伴不是简单的文本润色工具，而是一个嵌入聊天输入框的 AI 表达副驾驶：它理解上下文、学习表达偏好、生成可直接发送的候选，并在发送前完成隐私风险检查。
+
 ## 在线运行
 
 无需安装依赖，直接打开 `index.html` 即可体验。当前为本地 Mock 版本，不会上传用户输入。
@@ -20,6 +28,7 @@
 - [产品方案](docs/PRD.md)
 - [Prompt 与工作流设计](docs/WORKFLOW.md)
 - [用户测试与迭代记录](docs/USER_TEST.md)
+- [面试案例说明](docs/CASE_STUDY.md)
 
 ## 产品流程图
 
